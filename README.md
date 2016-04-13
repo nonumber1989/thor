@@ -1,12 +1,12 @@
-#  reaper
+#  thor
 
-> reaper RESTful webservice platform for [katana wechat conference application](https://bitbucket.org/nonumber1989/katana)
+> thor RESTful webservice platform 
 
 
 ## Description
-> reaper is a RESTFul webservice platform for an application katana  (used for wechat conference)
+> thor is a RESTFul webservice platform 
 
-> This project use Restify framework + Mongoose + MongoDB + other nodejs modules 
+> This project use express framework + Mongoose + MongoDB + other nodejs modules 
 
 
 ## Build &  Development
@@ -15,7 +15,7 @@ make sure you have install nodejs environment and MongodDB
 #### make sure the MongodDB started 
 
 
-    git clone https://bitbuckt.org/nonumber1989/reaper
+    git clone https://github.com/nonumber1989/thor
     npm install 
     node server.js
     
