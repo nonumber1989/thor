@@ -13,22 +13,24 @@ db.open(function (err) {
   var gfs = Grid(db, mongo);
 	// streaming to gridfs
 	var writestream = gfs.createWriteStream({
-		filename: './server/TLS/ryans-cert.pem'
+		filename: 'box.png'
 	});
-	fs.createReadStream('./server/TLS/ryans-cert.pem').pipe(writestream);
-
+	var fStream = fs.createReadStream("E://box.png");
+	fStream.pipe(writestream);
+// 	fs.createReadStream('E://box.vds').pipe(writestream);
+// 
 	// streaming from gridfs
-	var readstream = gfs.createReadStream({
-		filename: 'TLS/ryans-cert.pem'
-	});
+// 	var readstream = gfs.createReadStream({
+// 		filename: 'box.vds'
+// 	});
 
-	//error handling, e.g. file does not exist
-	readstream.on('error', function(err) {
-		console.log('An error occurred!', err);
-		throw err;
-	});
+// 	//error handling, e.g. file does not exist
+// 	readstream.on('error', function(err) {
+// 		console.log('An error occurred!', err);
+// 		throw err;
+// 	});
 
-	readstream.pipe(res);
+	fStream.pipe(res);
 })
 
 
