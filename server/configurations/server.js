@@ -44,7 +44,7 @@ thor.use(cookieParser());
 thor.use('/speakers', routes.speakers);
 thor.use('/accounts', routes.accounts);
 thor.use('/schedules', routes.schedules);
-
+thor.use('/gridfs', routes.gridfs);
 // catch 404 and forward to error handler
 thor.use(function(req, res, next) {
   var err = new Error('Not Found');
