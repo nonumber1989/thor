@@ -42,6 +42,7 @@ thor.use(cookieParser());
 //thor.use('/katana',express.static(path.join(process.cwd(), 'katana/app')));
 
 thor.use('/thor', routes.thor);
+thor.use('/jsonschema', routes.jsonschema);
 thor.use('/speakers', routes.speakers);
 thor.use('/accounts', routes.accounts);
 thor.use('/schedules', routes.schedules);
