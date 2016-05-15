@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var schemaUtils = require('json-schema-utils');
 
+var Promise = require("bluebird");
+
 router.get('/', function(req, res, next) {
 	var product = {
 		"id": 1,
@@ -28,13 +30,31 @@ router.get('/mongoose', function(req, res, next) {
 		"email": "nonumber1989@gmail.com",
 		"age": 1000,
 		"male": true,
-		"skills": ["java", "node"]
+		"skills": ["java", "node"],
+		"others": {
+			"age": 1,
+			"name": "waht",
+			"istime": true
+		},
+		"wh": [{
+			"yy": 1,
+			"333": true,
+			"ueueu": "333"
+		}, {
+			"yy": 1,
+			"333": true,
+			"ueueu": "333"
+		}]
 	};
 	var title = "User";
-	var fileName = title + ".js";
-	schemaUtils.mongooseSchema(title, user, "./" + fileName);
-	
+	var filePath = "./server/models/";
+	var fileName = filePath + title + ".js";
+	var mongooseSchema = Promise.promisify(schemaUtils.mongooseSchema);
+	mongooseSchema(title, user, fileName).then(function(value) {
+		res.json(value);
+	}).catch(function(error) {
+		console.log(error);
+	});
 });
-
 
 module.exports = router;
