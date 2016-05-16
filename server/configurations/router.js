@@ -17,6 +17,7 @@ var thorRouters = function(thor) {
 	thor.use('/accounts', router.accounts);
 	thor.use('/schedules', router.schedules);
 	thor.use('/gridfs', router.gridfs);
+	console.log('thor router'); 
 };
 
 module.exports.routers = thorRouters;

@@ -3,6 +3,7 @@ var router = express.Router();
 var schemaUtils = require('json-schema-utils');
 
 var Promise = require("bluebird");
+var fs = Promise.promisifyAll(require("fs"));
 
 router.get('/', function(req, res, next) {
 	var product = {
@@ -50,8 +51,24 @@ router.get('/mongoose', function(req, res, next) {
 	var filePath = "./server/models/";
 	var fileName = filePath + title + ".js";
 	var mongooseSchema = Promise.promisify(schemaUtils.mongooseSchema);
-	mongooseSchema(title, user, fileName).then(function(value) {
-		res.json(value);
+
+	var routerPath = "./server/configurations/router.js";
+	var replaceTemplate = "thor.use('/theRouter', router.theRouter);"
+	mongooseSchema(title, user, fileName).then(function(schema) {
+		fs.readFileAsync(routerPath, "utf8").then(function(content) {
+			var replace =  replaceTemplate.replace(/theRouter/g, title.toLowerCase() + 's') + " \n" + "	console.log('thor router');";
+			var targetContent = content.replace(/console.log\(\'thor router\'\);/g, replace);
+			return targetContent;
+		}).then(function(value) {
+			console.log(value);
+			fs.writeFileAsync(routerPath,value,'utf8').then(function(result){
+		    res.json(value);
+			}).catch(function(error){
+
+			});
+		}).catch(function(e) {
+			console.error(e.stack);
+		});
 	}).catch(function(error) {
 		console.log(error);
 	});
