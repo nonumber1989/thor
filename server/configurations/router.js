@@ -12,7 +12,6 @@ fs.readdirSync(routers_path).forEach(function(file) {
 
 var thorRouters = function(thor) {
 	thor.use('/thor', router.thor);
-	thor.use('/jsonschema', router.jsonschema);
 	thor.use('/speakers', router.speakers);
 	thor.use('/accounts', router.accounts);
 	thor.use('/schedules', router.schedules);
