@@ -21,6 +21,11 @@ make sure you have install nodejs environment and MongodDB
     
 User can use Rest Client or other rest utils to preview 
 
+## As Mock Server
+ 1. **install nodemon**
+ 2. **nodemon start**
+ 3. **visit thor/ with query parameter title=User for example**
+
 ## License
 
 MIT © [steven xu](nonumber1989)
