@@ -55,19 +55,39 @@ router.get('/mongoose', function(req, res, next) {
 	var routerPath = "./server/configurations/router.js";
 	var replaceTemplate = "thor.use('/theRouter', router.theRouter);"
 	mongooseSchema(title, user, fileName).then(function(schema) {
+		//modify the routers configuration
 		fs.readFileAsync(routerPath, "utf8").then(function(content) {
-			var replace =  replaceTemplate.replace(/theRouter/g, title.toLowerCase() + 's') + " \n" + "	console.log('thor router');";
+			var replace = replaceTemplate.replace(/theRouter/g, title.toLowerCase() + 's') + " \n" + "	console.log('thor router');";
 			var targetContent = content.replace(/console.log\(\'thor router\'\);/g, replace);
 			return targetContent;
 		}).then(function(value) {
-			console.log(value);
-			fs.writeFileAsync(routerPath,value,'utf8').then(function(result){
-		    res.json(value);
-			}).catch(function(error){
-
+			fs.writeFileAsync(routerPath, value, 'utf8').then(function(result) {
+				// res.json(value);
+			}).catch(function(error) {
+				throw error;
 			});
 		}).catch(function(e) {
 			console.error(e.stack);
+		});
+		//read router template and generate new router file
+		var routerTemplatePath = "./server/services/routerTemplate.js";
+		var routerName = "./server/routers/" + title.toLowerCase() + "s.js";
+		fs.readFileAsync(routerTemplatePath, "utf8").then(function(content) {
+			var replaceContent = content.replace(/MongooseSchema/g, title);
+			return replaceContent;
+		}).then(function(value) {
+			fs.writeFileAsync(routerName, value, 'utf8').then(function(result) {
+				// res.json(value);
+			}).catch(function(error) {
+				throw error;
+			});
+		}).catch(function(e) {
+			console.error(e.stack);
+		});
+
+	}).then(function(result) {
+		res.json({
+			"mame": "222222"
 		});
 	}).catch(function(error) {
 		console.log(error);

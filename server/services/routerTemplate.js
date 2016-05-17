@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
                 data: "Error occured: " + err
             });
         } else {
-            if (result) {v
+            if (result) {
                 res.json({
                     type: true,
                     data: result
