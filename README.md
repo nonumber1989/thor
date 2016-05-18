@@ -1,23 +1,24 @@
 #  thor
 
-> thor RESTful webservice platform 
+> thor is a RESTful mock service platform which you can use pure json to generate CRUD 
 
 
 ## Description
-> thor is a RESTFul webservice platform 
+> thor is a RESTFul webservice platform which you can use it as mock server 
 
 > This project use express framework + Mongoose + MongoDB + other nodejs modules 
 
 
 ## Build &  Development
 
-make sure you have install nodejs environment and MongodDB
+  1. make sure you have install nodejs environment and MongodDB
+  2. make sure installed [nodemon](http://nodemon.io/)
 #### make sure the MongodDB started 
 
 
     git clone https://github.com/nonumber1989/thor
     npm install 
-    node server.js
+    nodemon server.js
     
 User can use Rest Client or other rest utils to preview 
 
