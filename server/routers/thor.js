@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 var schemaUtils = require('json-schema-utils');
 var requestUtils = require('../services/requestUtils');
+var resourceService = require('../services/resourceService');
 var Promise = require("bluebird");
 var fs = Promise.promisifyAll(require("fs"));
 
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Types.ObjectId;
 var ResourceSpace = mongoose.model("ResourceSpace");
 var Resource = mongoose.model("Resource");
-//for thor resource space 
+//for thor resource space
 router.get('/resourceSpaces', function(req, res, next) {
 	var pagenation = requestUtils.getPagenation(req);
 	var queryPromise = ResourceSpace.find({}, {}, pagenation).exec();
@@ -48,6 +50,7 @@ router.post('/resourceSpaces', function(req, res, next) {
 router.post('/:spaceId/resources', function(req, res, next) {
 	var resourceSpace = req.params.spaceId;
 	var resource = new Resource(req.body);
+	var entryPoints = resourceService.basicEntryPoints("/users/:id?age=10&name=steven");
 	resource.resourceSpace = resourceSpace;
 	resource.save().then(function(resource) {
 		res.json(resource);
@@ -59,6 +62,31 @@ router.post('/:spaceId/resources', function(req, res, next) {
 		});
 	});
 });
+
+router.get('/:spaceId/resources', function(req, res, next) {
+	var resourceSpace = req.params.spaceId;
+	var queryPromise = Resource.find({
+		resourceSpace: resourceSpace
+	}).exec();
+	queryPromise.then(function(resources) {
+		if (resources.length) {
+			res.json(resources);
+		} else {
+			res.status(404)
+			res.json({
+				status: 404,
+				errorMessage: "no record found"
+			});
+		}
+	}).catch(function(err) {
+		res.status(500);
+		res.json({
+			status: 500,
+			errorMessage: err.message
+		});
+	})
+});
+
 
 router.post('/json', function(req, res, next) {
 	var query = requestUtils.getQuery(req);

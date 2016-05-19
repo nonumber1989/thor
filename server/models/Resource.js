@@ -8,16 +8,16 @@ var ResourceSchema = new Schema({
 	description: String,
 	//resource path
 	resourcePath: String,
-	entryPoint: [{
+	entryPoints: [{
 		url: String,
 		method: String,
 		queryParameters: [{
 			key: String,
-			value: String
+			type: String
 		}],
 		pathParameters: [{
 			key: String,
-			value: String
+			type: String
 		}]
 	}],
 	resourceSpace: {
