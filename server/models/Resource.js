@@ -3,6 +3,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+var ParameterSchema = new Schema({
+	key: String,
+	type: String
+});
+
 var ResourceSchema = new Schema({
 	title: String,
 	description: String,
@@ -11,14 +16,8 @@ var ResourceSchema = new Schema({
 	entryPoints: [{
 		url: String,
 		method: String,
-		queryParameters: [{
-			key: String,
-			type: String
-		}],
-		pathParameters: [{
-			key: String,
-			type: String
-		}]
+		queryParameters: [ParameterSchema],
+		pathParameters: [ParameterSchema]
 	}],
 	resourceSpace: {
 		type: Schema.Types.ObjectId,

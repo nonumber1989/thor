@@ -50,7 +50,9 @@ router.post('/resourceSpaces', function(req, res, next) {
 router.post('/:spaceId/resources', function(req, res, next) {
 	var resourceSpace = req.params.spaceId;
 	var resource = new Resource(req.body);
-	var entryPoints = resourceService.basicEntryPoints("/users/:id?age=10&name=steven");
+	var entryPoints = resourceService.basicEntryPoints("/users");
+	// resource.entryPoints = entryPoints;
+	// resource.resourcePath ="ooo";
 	resource.resourceSpace = resourceSpace;
 	resource.save().then(function(resource) {
 		res.json(resource);
