@@ -13,6 +13,8 @@ var ResourceSchema = new Schema({
 	description: String,
 	//resource path
 	resourcePath: String,
+	json: Schema.Types.Mixed,
+	jsonSchema: Schema.Types.Mixed,
 	entryPoints: [{
 		url: String,
 		method: String,

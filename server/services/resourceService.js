@@ -1,7 +1,7 @@
 'use strict';
 
 var url = require('url');
-
+var schemaUtils = require('json-schema-utils');
 
 var resourceMethod = {
   get: "get",

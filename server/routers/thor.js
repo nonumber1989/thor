@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var router = express.Router();
 var schemaUtils = require('json-schema-utils');
@@ -36,8 +38,8 @@ router.get('/resourceSpaces', function(req, res, next) {
 
 router.post('/resourceSpaces', function(req, res, next) {
 	var resourceSpace = new ResourceSpace(req.body);
-	resourceSpace.save().then(function(resourceSpace) {
-		res.json(resourceSpace);
+	resourceSpace.save().then(function(theSpace) {
+		res.json(theSpace);
 	}).catch(function(err) {
 		res.status(500);
 		res.json({
@@ -51,11 +53,36 @@ router.post('/:spaceId/resources', function(req, res, next) {
 	var resourceSpace = req.params.spaceId;
 	var resource = new Resource(req.body);
 	var entryPoints = resourceService.basicEntryPoints("/users");
-	// resource.entryPoints = entryPoints;
-	// resource.resourcePath ="ooo";
+	resource.entryPoints = entryPoints;
 	resource.resourceSpace = resourceSpace;
-	resource.save().then(function(resource) {
-		res.json(resource);
+	resource.save().then(function(theResource) {
+		res.json(theResource);
+	}).catch(function(err) {
+		res.status(500);
+		res.json({
+			status: 500,
+			errorMessage: err.message
+		});
+	});
+});
+
+router.get('/:spaceId/resources/:resourceId', function(req, res, next) {
+	var resourceSpace = req.params.spaceId;
+	var resourceId = req.params.resourceId;
+	var queryPromise = Resource.find({
+		_id: resourceId,
+		resourceSpace: resourceSpace
+	}).exec();
+	queryPromise.then(function(resources) {
+		if (resources.length) {
+			res.json(resources);
+		} else {
+			res.status(404)
+			res.json({
+				status: 404,
+				errorMessage: "no record found"
+			});
+		}
 	}).catch(function(err) {
 		res.status(500);
 		res.json({
@@ -86,7 +113,7 @@ router.get('/:spaceId/resources', function(req, res, next) {
 			status: 500,
 			errorMessage: err.message
 		});
-	})
+	});
 });
 
 

@@ -1,8 +1,20 @@
-/*
-* @Author: I325776
-* @Date:   2016-04-27 17:32:55
-* @Last Modified by:   I325776
-* @Last Modified time: 2016-05-19 14:12:11
-*/
-
 'use strict';
+
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var resourceService = require('./resourceService');
+
+var entryPoints = resourceService.basicEntryPoints("/users");
+
+var theSchema = new Schema({
+	name: String,
+	phone: String,
+	email: String,
+	company: String,
+	position: String,
+	comment: String
+});
+
+mongoose.model('Account', theSchema);
+
+console.log(JSON.stringify(entryPoints));
