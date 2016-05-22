@@ -44,6 +44,7 @@ router.routers(thor);
 thor.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  res.status(404);
   res.json({
     message: err.message,
     error: err

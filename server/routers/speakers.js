@@ -110,7 +110,7 @@ router.delete('/:id', function(req, res, next) {
             type: false,
             data: "Error occured: " + err
         })
-    })
+    });
 });
 
 module.exports = router;
