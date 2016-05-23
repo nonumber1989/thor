@@ -15,6 +15,7 @@ var ResourceSchema = new Schema({
 	resourcePath: String,
 	json: Schema.Types.Mixed,
 	jsonSchema: Schema.Types.Mixed,
+	modelSchema: Schema.Types.Mixed,
 	entryPoints: [{
 		url: String,
 		method: String,

@@ -88,8 +88,8 @@ var basicEntryPoints = function(resourcePath) {
   return entryPoints;
 };
 
-var routersFromEntryPoints = function(entryPoints, router) {
-  var MongooseModel = mongoose.model("Users");
+var routersFromEntryPoints = function(title, entryPoints, router) {
+  var MongooseModel = mongoose.model(title);
   entryPoints.forEach(function(entryPoint) {
     var routerPath = ThorResourceRoot + entryPoint.url;
     if (entryPoint.method === "get") {
