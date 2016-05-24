@@ -92,6 +92,35 @@ router.get('/:spaceId/resources/:resourceId', function(req, res, next) {
 	});
 });
 
+router.put('/:spaceId/resources/:resourceId', function(req, res, next) {
+	var updateObject = req.body;
+	var resourceSpace = req.params.spaceId;
+	var resourceId = req.params.resourceId;
+	var updatePromise = Resource.findOneAndUpdate({
+		_id: resourceId,
+		resourceSpace: resourceSpace
+	}, {
+		$set: updateObject
+	}).exec();
+	updatePromise.then(function(resource) {
+		if (resource) {
+			res.json(resource);
+		} else {
+			res.status(404)
+			res.json({
+				status: 404,
+				errorMessage: "no record found"
+			});
+		}
+	}).catch(function(err) {
+		res.status(500);
+		res.json({
+			status: 500,
+			errorMessage: err.message
+		});
+	});
+});
+
 router.get('/:spaceId/resources', function(req, res, next) {
 	var resourceSpace = req.params.spaceId;
 	var queryPromise = Resource.find({
