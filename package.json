@@ -31,12 +31,12 @@
     "express": "~4.13.1",
     "express-jwt": "^3.3.0",
     "gridfs-stream": "^1.1.1",
-    "json-schema-utils": "^1.0.8",
+    "json-schema-utils": "^1.0.9",
     "jsonwebtoken": "^5.5.4",
     "jwt-simple": "^0.4.0",
     "lodash": "^4.11.1",
     "mongodb": "2.1.16",
-    "mongoose": "^4.3.4",
+    "mongoose": "^4.4.19",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
   }

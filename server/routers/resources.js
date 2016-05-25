@@ -47,10 +47,6 @@ router.get('/bootstrap/:spaceId', function(req, res, next) {
  */
 function registerRouter(resources, router) {
 	resources.forEach(function(resource) {
-		resource.modelSchema = {
-			name: "String",
-			age: "Number"
-		};
 		registerModel(resource.title, resource.modelSchema);
 		resourceService.routersFromEntryPoints(resource.title, resource.entryPoints, router);
 	});

@@ -154,6 +154,26 @@ router.post('/json', function(req, res, next) {
 	res.json(schema);
 });
 
+function generateSchema(title, jsonSchema) {
+  var schemaProperties = {};
+  if (jsonSchema.type === "array") {
+    schemaProperties = jsonSchema.items.properties;
+  } else if (jsonSchema.type === "object") {
+    schemaProperties = jsonSchema.properties;
+  } else {
+    console.log(" for further type ... ");
+  }
+  var schemaObject = processSchema(schemaProperties);
+  return schemaObject;
+};
+
+router.post('/mongooseSchemaFromjsonSchema', function(req, res, next) {
+	var query = requestUtils.getQuery(req);
+	var title = query.title;
+	var thorObject = req.body;
+	var schema = schemaUtils.mongooseSchemaFromJsonSchema(title, thorObject);
+	res.json(schema);
+});
 
 router.post('/mongoose', function(req, res, next) {
 	var query = requestUtils.getQuery(req);
